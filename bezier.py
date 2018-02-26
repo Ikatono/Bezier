@@ -1,3 +1,5 @@
+from math import factorial as fact
+
 class Bezier:
     def __init__(self, *args, **kwargs):
         if len(args) == 1:
@@ -47,4 +49,13 @@ class Bezier:
             start = max(start, 0)
             stop = min(stop, 1)
             stop = max(stop, 0)
-        
+            return [self[i] for i in stepper(start, stop, step)]
+        else:
+            n = len(self.x) - 1
+            x = 0
+            y = 0
+            for i in range(n+1):
+                #eww
+                x += self.x[i]*((1-t)**i)*(t**(n-i))*fact(n)/fact(i)/fact(n-i)
+                y += self.y[i]*((1-t)**i)*(t**(n-i))*fact(n)/fact(i)/fact(n-i)
+            return (x, y)
