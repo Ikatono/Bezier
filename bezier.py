@@ -3,7 +3,7 @@ from math import factorial as fact
 class Bezier:
     def __init__(self, *args, **kwargs):
         if len(args) == 1:
-            inp = list(args)
+            inp = list(args[0])
             self.x = [i[0] for i in inp]
             self.y = [i[1] for i in inp]
         if len(args) == 2:
@@ -54,6 +54,8 @@ class Bezier:
                 pnts = [self[i] for i in stepper(start, stop, step)]
                 return [[i[0] for i in pnts], [i[1] for i in pnts]]
         else:
+            if not (0 <= t <= 1):
+                raise ValueError('t value must be in range [0, 1]')
             n = len(self.x) - 1
             x = 0
             y = 0
